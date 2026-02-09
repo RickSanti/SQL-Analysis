@@ -1,3 +1,54 @@
+/* ESPAÑOL
+OBJETIVO DEL ANÁLISIS
+ESTA QUERY FUE DESARROLLADA PARA VALIDAR LA CORRECTA ASIGNACIÓN DE DESCUENTOS A NIVEL CLIENTE,
+EN EL CONTEXTO DEL PROYECTO DE MIGRACIÓN, DONDE SE HAN IDENTIFICADO INCIDENCIAS DE DOBLE DESCUENTO
+O AUSENCIA DE DESCUENTO EN DETERMINADOS CASOS.
+
+CONTEXTO DEL PROBLEMA
+DEBIDO A LA MIGRACIÓN DE SISTEMAS Y FUENTES DE FACTURACIÓN, SE PRESENTAN VARIACIONES ATÍPICAS
+EN LOS DESCUENTOS APLICADOS A LOS CLIENTES. ESTAS INCIDENCIAS PUEDEN GENERAR IMPACTOS
+FINANCIEROS Y REQUIEREN SER DETECTADAS DE MANERA OPORTUNA PARA SU ANÁLISIS Y CORRECCIÓN.
+
+DESCRIPCIÓN DE LA LÓGICA
+EL PROCESO CONSOLIDA INFORMACIÓN DE FACTURACIÓN DE MÚLTIPLES FUENTES, HOMOLOGA LOS CONCEPTOS
+DE CARGO Y DESCUENTO, Y CALCULA LA RENTA A NIVEL CLIENTE Y PERIODO.
+POSTERIORMENTE, SE CONSTRUYE UNA SERIE TEMPORAL DE LA RENTA MENSUAL Y SE CALCULAN
+VARIACIONES DEL RATIO DE DESCUENTO ENTRE MESES CONSECUTIVOS.
+
+PARA CADA CLIENTE, SE EVALÚAN LAS DIFERENCIAS DE LOS ÚLTIMOS CUATRO MESES Y SE IDENTIFICA
+LA MAYOR VARIACIÓN EN VALOR ABSOLUTO, LA CUAL ES UTILIZADA COMO INDICADOR DE COMPORTAMIENTO ATÍPICO.
+ESTE INDICADOR PERMITE MARCAR A LOS CLIENTES QUE PRESENTAN POSIBLES INCIDENCIAS
+(DOBLE DESCUENTO O DESCUENTO NO APLICADO).
+
+RESULTADO Y USO DEL ANÁLISIS
+EL RESULTADO DE LA QUERY PERMITE IDENTIFICAR CLIENTES CON VARIACIONES SIGNIFICATIVAS
+EN LA APLICACIÓN DE DESCUENTOS, FACILITANDO SU REVISIÓN POSTERIOR.
+ESTE ANÁLISIS SE EJECUTA EN CADA CICLO DE FACTURACIÓN (CUATRO CICLOS MENSUALES)
+Y ES UTILIZADO COMO MECANISMO DE ALERTA PARA EL EQUIPO DE MERCADO,
+QUIENES REALIZAN EL ANÁLISIS Y LAS ACCIONES CORRECTIVAS CORRESPONDIENTES.
+*/
+
+/* ENGLSIH
+OBJECTIVE OF THE ANALYSIS
+This query was developed to validate the correct allocation of discounts at the customer level,
+within the context of the migration project, where instances of double discounts or lack of discounts have been identified in certain cases.
+
+PROBLEM CONTEXT
+Due to the migration of systems and billing sources, atypical variations are occurring
+in the discounts applied to customers. These issues can generate financial impacts and require timely detection for analysis and correction.
+
+LOGIC DESCRIPTION
+The process consolidates billing information from multiple sources, standardizes charge and discount concepts, and calculates rent at the customer and period level.
+Subsequently, a time series of monthly rent is constructed, and variations in the discount ratio between consecutive months are calculated.
+
+For each customer, the differences over the last four months are evaluated, and the largest absolute variation is identified and used as an indicator of atypical behavior. This indicator allows you to flag customers who may have issues (double discount or discount not applied).
+
+Results and Use of the Analysis
+The query results allow you to identify customers with significant variations in discount application, facilitating subsequent review.
+This analysis is run in each billing cycle (four monthly cycles) and is used as an alert mechanism for the marketing team, who then perform the analysis and take the corresponding corrective actions.
+
+*/
+
 DROP TABLE TMP_REVISION_CLIENTE PURGE;
 
 CREATE TABLE TMP_REVISION_CLIENTE AS
@@ -431,3 +482,4 @@ NOS PERMITE REVISAR POR CATEGORÍAS, CLIENTE, CLIENTES ESPECIALES Y MAYORES DIFE
 /*THE FINAL TABLE ALLOWS YOU TO REVIEW THE DISCOUNT RATIO DIFFERENCES FOR EACH CUSTOMER TO EVALUATE IF THEY WERE GIVEN EXCESSIVE DISCOUNTS OR NONE AT ALL.
 IT ALLOWS US TO REVIEW BY CATEGORY, CUSTOMER, SPECIAL CUSTOMERS, AND GREATEST RATIO DIFFERENCES*/
 SELECT * FROM RECIBOS_CLIENTE_B2B;
+
